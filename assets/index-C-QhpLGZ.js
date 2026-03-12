@@ -24,17 +24,17 @@ ${Object.entries(g).map(([E,x],F)=>`${F+1}. **${E}** — ${x} articles`).join(`
 `)||"No data"}
 `}if(o==="events"&&(m=`## 🌍 Major Global Events
 
-${(Array.isArray(y.events)?y.events:[]).map(E=>`${E.event||E.topic||"Event"} — ${E.count||0} articles`).join(`
+	${(Array.isArray(y.events)?y.events:y.events?.events||[]).map(E=>`${E.event||E.topic||"Event"} — ${E.count||0} articles`).join(`
 
 `)||"No events detected"}
-`),o==="trends"&&(m=`## 🔥 Top Global News Trends
+	`),o==="trends"&&(m=`## 🔥 Top Global News Trends
 
-${(Array.isArray(y.trends)?y.trends:y.trends?.trends||[]).map((E,x)=>{if(typeof E=="string")return`${x+1}. ${E}`;const F=Array.isArray(E.articles)?E.articles.map(j=>`• ${j}`).join(`
-`):"";return`${x+1}. 🔥 ${E.topic||"News Trend"}
+	${(Array.isArray(y.trends)?y.trends:y.trends?.trends||[]).map((E,x)=>{if(typeof E=="string")return`${x+1}. ${E}`;const F=(E.articles||[]).map(j=>`• ${j}`).join(`
+`);return`${x+1}. 🔥 ${E.topic||"News Trend"}
 ${F}`}).join(`
 
 `)||"No trends detected"}
-`),o==="summary"){const g=y.summary&&typeof y.summary=="object"?y.summary:{};m=`## 📰 ${g.headline||"News Summary"}
+	`),o==="summary"){const g=y.summary&&typeof y.summary=="object"?y.summary:{};m=`## 📰 ${g.headline||"News Summary"}
 
 ${g.short_summary||""}
 
@@ -44,11 +44,11 @@ ${Array.isArray(g.key_points)?g.key_points.map(v=>`• ${v}`).join(`
 
 ### Why It Matters
 ${g.why_it_matters||""}
-`}if(o==="coverage"){const g=y.coverage&&typeof y.coverage=="object"?y.coverage:{};m=`## 🌍 Global Coverage
+`}if(o==="coverage"){const g=typeof y.coverage=="object"?y.coverage:y.coverage?.coverage||{};m=`## 🌍 Global Coverage
 
-${Object.entries(g).map(([E,x])=>`• **${E}** — ${x} articles`).join(`
+	${Object.entries(g).map(([E,x])=>`• **${E}** — ${x} articles`).join(`
 `)||"No coverage data"}
-`}if(o==="infographic"){const g=y.chart&&typeof y.chart=="object"?y.chart:{};m=`## 📊 News Infographic
+	`}if(o==="infographic"){const g=y.chart&&typeof y.chart=="object"?y.chart:{};m=`## 📊 News Infographic
 
 **Top Trend:** ${g.top_trend||"N/A"}
 
